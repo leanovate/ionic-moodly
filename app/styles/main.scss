@@ -1,0 +1,17 @@
+// Your application styles go here
+@import "variables";
+
+.slider {
+    .box {
+        height: 100%;
+    }
+    img.mood {
+        padding: 20px 0;
+        max-width: 60%;
+    }
+
+    .vote-container {
+        padding: 0 10px;
+    }
+}
+
