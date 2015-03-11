@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Create Voting</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="vm.closeCreate()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="vm.createVoting()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Voting-Title</span>
+                    <input type="text" ng-model="vm.newVoting.title">
+                </label>
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">Add</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

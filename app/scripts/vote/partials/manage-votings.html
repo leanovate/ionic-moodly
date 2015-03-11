@@ -1,0 +1,29 @@
+<ion-view title="Manage Votings">
+    <ion-nav-buttons side="primary">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-android-add" ng-click="vm.openCreateVoting()"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list can-swipe="true">
+            <ion-item
+                ng-repeat="(vId, voting) in vm.myVotings | orderBy:'title'"
+                class="item item-remove-animate"
+                ng-click="vm.goToVoting(vId)"
+                ng-if="voting && voting.title">
+
+                <h2 ng-bind="voting.title"></h2>
+                <p>TAN: {{ vId }}</p>
+                <ion-option-button
+                    class="button-calm"
+                    ng-click="vm.edit(vId, voting)">Edit</ion-option-button>
+                <ion-option-button
+                    class="button-assertive"
+                    ng-click="vm.myVotings[vId] = {};">Delete</ion-option-button>
+            </ion-item>
+            <div class="item" ng-if="vm.noVotings">No votings available - add one!</div>
+        </ion-list>
+    </ion-content>
+</ion-view>
+

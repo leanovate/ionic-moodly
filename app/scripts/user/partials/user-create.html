@@ -1,23 +1,22 @@
-<ion-view title="Sign up" class="bar-positive">
+<ion-view title="Sign up">
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-content class="has-header padding">
+        <form ng-submit="cu.createUser()">
         <div class="list">
             <label class="item item-input">
-                <span class="input-label">Email</span>
-                <input type="text" ng-model="cu.user.email">
+                <input type="text" ng-model="cu.user.email" placeholder="Email">
             </label>
             <label class="item item-input">
-                <span class="input-label">Password</span>
-                <input type="password" ng-model="cu.user.password">
+                <input type="password" ng-model="cu.user.password" placeholder="Password">
             </label>
-            <label class="item item-input">
-                <button class="button button-block button-positive" ng-click="cu.createUser()">
-                    Sign Up
-                </button>
-            </label>
-        </div>
+            </div>
+            <div class="padding-left padding-right">
+                <button class="button button-block button-positive">Sign Up</button>
+                <span ng-if="cu.error" class="item item-assertive" ng-bind="cu.error"></span>
+            </div>
+        </form>
     </ion-content>
 
 </ion-view>

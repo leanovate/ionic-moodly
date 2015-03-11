@@ -20,12 +20,12 @@
 <body ng-app="Moodly">
     <ion-nav-view></ion-nav-view>
 
-    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+    <script src="lib/firebase/firebase.js"></script>
     <!-- build:js scripts/vendor.js -->
     <!-- <script src="vendor/someContribJs.js"></script> -->
     <!-- bower:js -->
     <script src="lib/angular/angular.js"></script>
+    <script src="lib/angularfire/dist/angularfire.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
     <script src="lib/angular-sanitize/angular-sanitize.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
@@ -33,7 +33,6 @@
     <script src="lib/ionic/release/js/ionic-angular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <script src="https://cdn.firebase.com/libs/angularfire/0.5.0/angularfire.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
@@ -43,9 +42,13 @@
     <script src="scripts/app.js"></script>
 
     <script src="scripts/vote/vote.module.js"></script>
+    <script src="scripts/vote/vote-list.controller.js"></script>
     <script src="scripts/vote/vote.controller.js"></script>
+    <script src="scripts/vote/voting-manage.controller.js"></script>
+    <script src="scripts/vote/voting.factory.js"></script>
 
     <script src="scripts/user/user.module.js"></script>
+    <script src="scripts/user/user.service.js"></script>
     <script src="scripts/user/user-create.controller.js"></script>
     <script src="scripts/user/user-login.controller.js"></script>
     <!-- endbuild -->

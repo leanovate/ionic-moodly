@@ -1,0 +1,19 @@
+<ion-view title="Vote">
+    <ion-nav-buttons side="primary">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-android-add" ng-click="vl.openAddByTan()"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <div class="list">
+            <a
+                ng-repeat="voting in vl.votings track by $index | orderBy:'title'"
+                class="item"
+                ui-sref="app.votes.vote({voteId: voting.id})"
+                ng-bind="::voting.title"
+                ></a>
+        </div>
+    </ion-content>
+</ion-view>
+

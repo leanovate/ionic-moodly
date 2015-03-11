@@ -1,4 +1,4 @@
-(function(angular, Firebase, FirebaseSimpleLogin) {
+(function(angular, Firebase) {
     'use strict';
 // Ionic Starter App, v0.9.20
 
@@ -17,81 +17,34 @@
 
         .run(run)
 
-        .config(config);
+        .config(config)
 
-    function run($rootScope, $ionicPlatform, $firebaseAuth, $firebase, $window, $ionicLoading) {
+        .constant('FirebaseUrl', 'https://moodly.firebaseio.com/')
+    ;
+
+    function run($rootScope, $ionicPlatform, $state) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             if(window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             }
+
             if(window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
             }
+        });
 
-            $rootScope.checkSession = checkSession;
-            $rootScope.hide = hide;
-            $rootScope.logout = logout;
-            $rootScope.notify = notify;
-            $rootScope.show = show;
-
-            $rootScope.userEmail = null;
-            $rootScope.baseUrl = 'https://moodly.firebaseio.com/';
-            var authRef = new Firebase($rootScope.baseUrl);
-            $rootScope.auth = $firebaseAuth(authRef);
-
-
-            function checkSession() {
-                var auth = new FirebaseSimpleLogin(authRef, function(error, user) {
-                    if(error) {
-                        // no action yet.. redirect to default route
-                        $rootScope.userEmail = null;
-                        $window.location.href = '#/app/auth/signin';
-                    } else if(user) {
-                        // user authenticated with Firebase
-                        $rootScope.userEmail = user.email;
-                        $window.location.href = ('#/app/votings');
-                    } else {
-                        // user is logged out
-                        $rootScope.userEmail = null;
-                        $window.location.href = '#/app/auth/signin';
-                    }
-                });
+        $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+            if (error === 'AUTH_REQUIRED') {
+                $state.go('app.user-login');
             }
-
-            function logout() {
-                $rootScope.auth.$logout();
-                $rootScope.checkSession();
-            }
-
-            function show(text) {
-                $rootScope.loading = $ionicLoading.show({
-                    content: text ? text : 'Loading..',
-                    animation: 'fade-in',
-                    showBackdrop: true,
-                    maxWidth: 200,
-                    showDelay: 0
-                });
-            }
-
-            function notify(text) {
-                $rootScope.show(text);
-                $window.setTimeout(function() {
-                    $rootScope.hide();
-                }, 1999);
-            }
-
-            function hide() {
-                $ionicLoading.hide();
-            }
-
         });
     }
 
 
-    function config($stateProvider, $urlRouterProvider) {
+    function config($stateProvider) {
         $stateProvider
 
             .state('app', {
@@ -99,11 +52,7 @@
                 abstract: true,
                 templateUrl: 'templates/menu.html'
             });
-
-
-        // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/user/login');
     }
-})(angular, Firebase, FirebaseSimpleLogin);
+})(angular, Firebase);
 
 
