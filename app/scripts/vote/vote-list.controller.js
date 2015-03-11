@@ -4,7 +4,7 @@
         .module('Moodly.vote')
         .controller('VoteListCtrl', VoteListCtrl);
 
-    function VoteListCtrl($scope, $ionicModal) {
+    function VoteListCtrl($scope, $ionicModal, VotingMgr, currentAuth) {
         var vl = this;
 
         vl.addByTan = addByTan;
@@ -13,7 +13,29 @@
 
         init();
 
+        function init() {
+            $ionicModal.fromTemplateUrl('scripts/vote/partials/add-voting-by-tan.html', {
+                scope: $scope
+            }).then(function(modal) {
+                vl.modal = modal;
+            });
+
+            vl.newVotingTan = '';
+            vl.votings = {};
+            VotingMgr.votingsToParticipate(currentAuth.uid).$bindTo($scope, 'vl.votings');
+        }
+
+
         function addByTan() {
+            var voting = VotingMgr.getByTan(vl.newVotingTan);
+            voting.$loaded().then(function() {
+                if(voting) {
+                    vl.votings[vl.newVotingTan] = {
+                        title: voting.title,
+                        owner: voting.owner
+                    };
+                }
+            });
             vl.modal.hide();
         }
 
@@ -24,19 +46,5 @@
         function closeAddByTan() {
             vl.modal.hide();
         }
-
-        function init() {
-            $ionicModal.fromTemplateUrl('scripts/vote/partials/add-voting-by-tan.html', {
-                scope: $scope
-            }).then(function(modal) {
-                vl.modal = modal;
-            });
-
-            vl.votings = [];
-
-        }
-
-
     }
-
 })(angular);

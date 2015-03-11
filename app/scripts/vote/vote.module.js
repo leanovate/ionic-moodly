@@ -7,21 +7,21 @@
     function config($stateProvider, $urlRouterProvider) {
         $stateProvider
 
-            .state('app.votes', {
+            .state('app.votes-list', {
                 url: '/votes',
                 views: {
                     'menuContent': {
                         templateUrl: 'scripts/vote/partials/vote-list.html',
                         controller: 'VoteListCtrl as vl'
-                    },
-                    resolve: {
-                        // controller will not be loaded until $waitForAuth resolves
-                        // Auth refers to our $firebaseAuth wrapper in the example above
-                        'currentAuth': ['UserAuth', function(UserAuth) {
-                            // $waitForAuth returns a promise so the resolve waits for it to complete
-                            return UserAuth.auth().$requireAuth();
-                        }]
                     }
+                },
+                resolve: {
+                    // controller will not be loaded until $waitForAuth resolves
+                    // Auth refers to our $firebaseAuth wrapper in the example above
+                    'currentAuth': ['UserAuth', function(UserAuth) {
+                        // $waitForAuth returns a promise so the resolve waits for it to complete
+                        return UserAuth.auth().$requireAuth();
+                    }]
                 }
             })
 
@@ -43,7 +43,7 @@
                 }
             })
 
-            .state('app.votes.vote', {
+            .state('app.vote', {
                 url: '/votes/:voteId',
                 views: {
                     'menuContent': {

@@ -7,6 +7,7 @@
 
     function VotingManageCtrl($scope, $ionicModal, VotingMgr, currentAuth) {
         var vm = this;
+        var tan2VotingMapper;
         vm.createVoting = createVoting;
         vm.closeCreate = closeCreate;
         vm.openCreateVoting = openCreateVoting;
@@ -25,7 +26,8 @@
             vm.myVotings = {};
 
             VotingMgr.votingFbObject(currentAuth.uid).$bindTo($scope, 'vm.myVotings');
-            vm.noVotings = angular.equals({}, vm.myVotings);
+            //vm.noVotings = angular.equals({}, vm.myVotings);
+            tan2VotingMapper =VotingMgr.tan2VotingMapper();
         }
 
         function openCreateVoting() {
@@ -40,8 +42,12 @@
                 'allowed': {},
                 'results': {}
             };
-
             vm.myVotings[tan] = voting;
+            tan2VotingMapper.child(tan).set({
+                owner: currentAuth.uid,
+                title: vm.newVoting.title
+            });
+
             vm.newVoting.title = '';
             vm.noVotings = false;
             closeCreate();

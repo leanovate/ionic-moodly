@@ -8,9 +8,9 @@
     <ion-content class="has-header">
         <div class="list">
             <a
-                ng-repeat="voting in vl.votings track by $index | orderBy:'title'"
+                ng-repeat="(vId, voting) in vl.votings | orderBy:'title'"
                 class="item"
-                ui-sref="app.votes.vote({voteId: voting.id})"
+                ui-sref="app.vote({voteId: vId})"
                 ng-bind="::voting.title"
                 ></a>
         </div>

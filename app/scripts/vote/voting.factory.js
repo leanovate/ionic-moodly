@@ -6,15 +6,33 @@
     ;
 
 
-    function VotingMgr($firebaseObject , FirebaseUrl) {
+    function VotingMgr($firebaseObject, FirebaseUrl) {
 
         return {
-            votingFbObject: votingFbObject
+            votingFbObject: votingFbObject,
+            tan2VotingMapper: tan2VotingMapper,
+            votingsToParticipate: votingsToParticipate,
+            getByTan: getByTan
         };
 
         function votingFbObject(uid) {
-            var votesRef = new Firebase(FirebaseUrl + 'votings');
-            return $firebaseObject(votesRef.orderByChild('owner').equalTo(uid));
+            var votesRef = new Firebase(FirebaseUrl + 'votings/' + uid);
+            return $firebaseObject(votesRef);
+        }
+
+        function tan2VotingMapper() {
+            var votesRef = new Firebase(FirebaseUrl + 'tan2Voting');
+            return votesRef;
+        }
+
+        function getByTan(tan) {
+            var votesRef = new Firebase(FirebaseUrl + 'tan2Voting/' + tan);
+            return $firebaseObject(votesRef);
+        }
+
+        function votingsToParticipate(uid) {
+            var votesRef = new Firebase(FirebaseUrl + 'votings2participate/' + uid);
+            return $firebaseObject(votesRef);
         }
     }
 
