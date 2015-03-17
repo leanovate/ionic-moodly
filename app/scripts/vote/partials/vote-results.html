@@ -1,0 +1,16 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Votings</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="vm.closeModal()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div
+            ng-repeat="mood in vm.results"
+            class="item item-avatar animated-item">
+            <img ng-src="{{ 'images/' +  mood.img }}" />
+            <h2>Votes: {{ mood.votes || 0 }}</h2>
+        </div>
+    </ion-content>
+</ion-modal-view>

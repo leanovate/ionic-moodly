@@ -1,8 +1,16 @@
 (function(angular) {
     'use strict';
     angular
-        .module('Moodly.vote', ['ng', 'firebase'])
-        .config(config);
+        .module('Moodly.vote', ['ng', 'firebase', 'ngCordova.plugins.vibration'])
+        .config(config)
+        .value('Moods', [
+            {img: '1-frustrated.png', label: 'frustrated'},
+            {img: '2-sad.png', label: 'sad'},
+            {img: '3-neutral.png', label: 'neutral'},
+            {img: '4-fine.png', label: 'fine'},
+            {img: '5-happy.png', label: 'happy'}
+        ])
+    ;
 
     function config($stateProvider, $urlRouterProvider) {
         $stateProvider
@@ -20,7 +28,7 @@
                     // Auth refers to our $firebaseAuth wrapper in the example above
                     'currentAuth': ['UserAuth', function(UserAuth) {
                         // $waitForAuth returns a promise so the resolve waits for it to complete
-                        return UserAuth.auth().$requireAuth();
+                        return UserAuth.getUUID();
                     }]
                 }
             })
@@ -38,13 +46,13 @@
                     // Auth refers to our $firebaseAuth wrapper in the example above
                     'currentAuth': ['UserAuth', function(UserAuth) {
                         // $waitForAuth returns a promise so the resolve waits for it to complete
-                        return UserAuth.auth().$requireAuth();
+                        return UserAuth.getUUID();
                     }]
                 }
             })
 
             .state('app.vote', {
-                url: '/votes/:voteId',
+                url: '/votes/:tan',
                 views: {
                     'menuContent': {
                         templateUrl: 'scripts/vote/partials/vote.html',
@@ -56,7 +64,7 @@
                     // Auth refers to our $firebaseAuth wrapper in the example above
                     'currentAuth': ['UserAuth', function(UserAuth) {
                         // $waitForAuth returns a promise so the resolve waits for it to complete
-                        return UserAuth.auth().$requireAuth();
+                        return UserAuth.getUUID();
                     }]
                 }
             });

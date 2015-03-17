@@ -4,9 +4,10 @@
         .service('UserAuth', UserAuth);
 
 
-    function UserAuth($firebaseAuth, FirebaseUrl, $q, $ionicLoading, $state) {
+    function UserAuth($firebaseAuth, FirebaseUrl, $q, $ionicLoading, $ionicPlatform, $cordovaDevice) {
         var currentUserEmail = false;
         var currentUid = false;
+        var uuId = false;
 
         this.login = function(email, password) {
             return auth().$authWithPassword({
@@ -43,7 +44,28 @@
                 currentUid = authData.uid;
                 deferred.resolve(currentUid);
             } else {
-                $state.go('app.user-login');
+                auth().$authAnonymously().then(function(authData) {
+                    currentUid = authData.uid;
+                    deferred.resolve(currentUid);
+                });
+            }
+
+            return deferred.promise;
+        };
+
+        this.setUUID = function(id) {
+            uuId = id;
+        };
+
+        this.getUUID = function() {
+            var deferred = $q.defer();
+            if(uuId) {
+                deferred.resolve(uuId);
+            } else {
+                $ionicPlatform.ready(function() {
+                    uuId = {uid: $cordovaDevice.getUUID()};
+                    deferred.resolve(uuId);
+                });
             }
 
             return deferred.promise;

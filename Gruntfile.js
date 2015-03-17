@@ -519,6 +519,13 @@ module.exports = function(grunt) {
         grunt.config('concurrent.ionic.tasks', ['ionic:emulate:' + this.args.join(), 'watch']);
         return grunt.task.run(['init', 'concurrent:ionic']);
     });
+
+    grunt.registerTask('emulate-ios', function() {
+        grunt.config('concurrent.ionic.tasks', ['ionic:emulate:ios', 'watch']);
+        grunt.option('livereload', true);
+        return grunt.task.run(['init', 'concurrent:ionic']);
+    });
+
     grunt.registerTask('run', function() {
         grunt.config('concurrent.ionic.tasks', ['ionic:run:' + this.args.join(), 'watch']);
         return grunt.task.run(['init', 'concurrent:ionic']);

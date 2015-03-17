@@ -3,7 +3,7 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-content class="has-header" scroll="false">
-        <ion-slide-box on-slide-changed="vote.slideHasChanged($index)">
+        <ion-slide-box active-slide="vote.selectedMood" does-continue="true">
             <ion-slide ng-if="vote.moods" ng-repeat="mood in vote.moods track by $index">
                 <div class="box">
                     <div class="list card">
@@ -13,10 +13,10 @@
                         </div>
 
                         <div class="item item-image mood">
-                            <img src="/images/{{ ::mood.img }}" alt="{{ mood.label }}" class="mood">
+                            <img ng-src="{{ 'images/' + mood.img }}" alt="{{ ::mood.label }}" class="mood">
                         </div>
                         <div class="items vote-container">
-                            <button class="button button-block button-positive">
+                            <button class="button button-block button-positive" ng-click="vote.voteNow()">
                                 Vote
                             </button>
 

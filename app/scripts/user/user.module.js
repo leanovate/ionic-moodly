@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
     angular
-        .module('Moodly.user', ['firebase'])
-        .config(config)
+        .module('Moodly.user', ['firebase', 'ngCordova.plugins.device'])
+        //.config(config)
     ;
 
 

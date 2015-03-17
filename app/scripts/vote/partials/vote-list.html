@@ -9,10 +9,13 @@
         <div class="list">
             <a
                 ng-repeat="(vId, voting) in vl.votings | orderBy:'title'"
-                class="item"
-                ui-sref="app.vote({voteId: vId})"
-                ng-bind="::voting.title"
-                ></a>
+                class="item item-avatar"
+                ui-sref="app.vote({tan: vId})"
+                ng-if="voting && voting.title">
+                <img ng-if="voting.result" ng-src="{{ 'images/' +  vl.moods[voting.result].img }}" />
+                <img ng-if="voting.result === null" ng-src="{{ 'images/' + vl.moods[3].img }}" class="no-voting" />
+                <h2 ng-bind="voting.title"></h2>
+            </a>
         </div>
     </ion-content>
 </ion-view>

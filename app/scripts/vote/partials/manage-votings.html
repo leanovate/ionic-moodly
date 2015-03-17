@@ -10,7 +10,7 @@
             <ion-item
                 ng-repeat="(vId, voting) in vm.myVotings | orderBy:'title'"
                 class="item item-remove-animate"
-                ng-click="vm.goToVoting(vId)"
+                ng-click="vm.showResults($event, vId)"
                 ng-if="voting && voting.title">
 
                 <h2 ng-bind="voting.title"></h2>

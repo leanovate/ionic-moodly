@@ -5,19 +5,27 @@
         .module('Moodly.vote')
         .controller('VoteCtrl', VoteCtrl);
 
-    function VoteCtrl($scope) {
-        var v = this;
-        v.slideHasChanged = slideHasChanged;
-        v.moods = [
-            {img: '1-frustrated.png', label: 'frustrated'},
-            {img: '2-sad.png', label: 'sad'},
-            {img: '3-neutral.png', label: 'neutral'},
-            {img: '4-fine.png', label: 'fine'},
-            {img: '5-happy.png', label: 'happy'}
-        ];
+    function VoteCtrl(VotingMgr, $stateParams, currentAuth, Moods, $state) {
+        var vote = this;
 
-        function slideHasChanged(idx) {
-            console.log(idx);
+        vote.voteNow = voteNow;
+
+        vote.moods = Moods;
+
+        vote.selectedMood = 3;
+
+        function voteNow() {
+            var originalVote = VotingMgr.getByTan($stateParams.tan);
+            originalVote.$loaded().then(function() {
+                VotingMgr.setVoting({
+                    owner: originalVote.owner,
+                    tan: $stateParams.tan,
+                    uid: currentAuth.uid,
+                    mood: vote.selectedMood
+                });
+            });
+
+            $state.go('app.votes-list');
         }
     }
 })(angular);

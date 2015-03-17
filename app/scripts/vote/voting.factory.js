@@ -12,7 +12,16 @@
             votingFbObject: votingFbObject,
             tan2VotingMapper: tan2VotingMapper,
             votingsToParticipate: votingsToParticipate,
-            getByTan: getByTan
+            getByTan: getByTan,
+            setVoting: setVoting,
+            /**
+             *
+             * @param owner
+             * @param tan
+             * @param uid
+             * @returns $firebaseObject
+             */
+            getVotingForTan: getVotingForTan
         };
 
         function votingFbObject(uid) {
@@ -26,13 +35,25 @@
         }
 
         function getByTan(tan) {
-            var votesRef = new Firebase(FirebaseUrl + 'tan2Voting/' + tan);
+            var votesRef = new Firebase(FirebaseUrl + 'tan2Voting/' + tan.toUpperCase());
             return $firebaseObject(votesRef);
         }
 
         function votingsToParticipate(uid) {
             var votesRef = new Firebase(FirebaseUrl + 'votings2participate/' + uid);
             return $firebaseObject(votesRef);
+        }
+
+        function getVotingForTan(owner, tan, uid) {
+            var votesRef = new Firebase(FirebaseUrl + 'votings/' + owner + '/' + tan.toUpperCase() + '/results/' + uid);
+            return $firebaseObject(votesRef);
+        }
+
+        function setVoting(params) {
+            var votesRef = new Firebase(
+                FirebaseUrl + 'votings/' + params.owner + '/' + params.tan.toUpperCase() + '/results'
+            );
+            votesRef.child(params.uid).set(params.mood);
         }
     }
 

@@ -2,11 +2,11 @@
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
-    <ion-content class="">
+    <ion-content>
         <form ng-submit="lu.validateUser()">
             <div class="list">
                 <label class="item item-input">
-                    <input type="text" ng-model="lu.user.email" placeholder="Email">
+                    <input type="email" ng-model="lu.user.email" placeholder="Email">
                 </label>
                 <label class="item item-input">
                     <input type="password" ng-model="lu.user.password" placeholder="Password">
