@@ -1,6 +1,7 @@
 <ion-modal-view>
     <ion-header-bar>
         <h1 class="title">Create Voting</h1>
+
         <div class="buttons">
             <button class="button button-clear" ng-click="vm.closeModal()">Close</button>
         </div>
@@ -8,9 +9,31 @@
     <ion-content>
         <form ng-submit="vm.createVoting()">
             <div class="list">
-                <label class="item item-input">
-                    <input type="text" ng-model="vm.newVoting.title" placeholder="Voting-Title">
+                <div class="item item-input">
+                    <label class="input-label">
+                        Voting-Title
+                    </label>
+                    <input type="text" ng-model="vm.newVoting.title" placeholder="Title">
+                </div>
+                <label class="item item-input item-select">
+                    <div class="input-label">Voting frequency</div>
+                    <select ng-model="vm.newVoting.frequency">
+                        <option value="once">One time voting</option>
+                        <option value="7">Every week</option>
+                        <option value="1">Every day</option>
+                    </select>
                 </label>
+                <div class="item item-toggle">
+                    Multiple Votings per User
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="vm.newVoting.multiple">
+
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
                 <label class="item">
                     <button class="button button-block button-positive" type="submit">Add</button>
                 </label>

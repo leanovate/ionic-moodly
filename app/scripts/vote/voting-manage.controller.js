@@ -18,7 +18,7 @@
 
 
         function init() {
-            vm.newVoting = {};
+            vm.newVoting = {frequency: 'once'};
             vm.myVotings = {};
             vm.currentVoteShown = false;
 
@@ -61,16 +61,17 @@
             var voting = {
                 'title': vm.newVoting.title,
                 'owner': currentAuth.uid,
-                'allowed': {},
-                'results': {}
+                'frequency': vm.newVoting.frequency,
+                'multiple': vm.newVoting.multiple
             };
+
             vm.myVotings[tan] = voting;
             tan2VotingMapper.child(tan).set({
                 owner: currentAuth.uid,
                 title: vm.newVoting.title
             });
 
-            vm.newVoting.title = '';
+            vm.newVoting = {frequency: 'once'};
             vm.noVotings = false;
             closeModal();
         }
@@ -105,7 +106,7 @@
         var keylist = 'ABCDEFGHIJKLMNOPQRSTUVWXY1234567890';
         var temp = '';
 
-        for(var i = 0; i <= 6; i++) {
+        for(var i = 0; i < 6; i++) {
             temp += keylist.charAt(Math.floor(Math.random() * keylist.length));
         }
 

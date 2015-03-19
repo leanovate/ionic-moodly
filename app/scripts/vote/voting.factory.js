@@ -53,7 +53,9 @@
             var votesRef = new Firebase(
                 FirebaseUrl + 'votings/' + params.owner + '/' + params.tan.toUpperCase() + '/results'
             );
-            votesRef.child(params.uid).set(params.mood);
+
+            var d = new Date();
+            votesRef.child(params.uid).push({value: params.mood, time: d.toString()});
         }
     }
 
