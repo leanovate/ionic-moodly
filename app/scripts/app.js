@@ -18,7 +18,7 @@
 
         .config(config)
 
-        .constant('FirebaseUrl', 'https://moodly.firebaseio.com/')
+        .constant('FirebaseUrl', 'https://YOUR_FB_URL.firebaseio.com/')
     ;
 
     function run($rootScope, $ionicPlatform, $state) {
